@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { getSessionToken } from "@/lib/auth/session";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
 
@@ -10,6 +11,8 @@ const links = [
 ];
 
 export function SiteHeader() {
+  const isAuthenticated = Boolean(getSessionToken());
+
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -25,7 +28,20 @@ export function SiteHeader() {
             ))}
           </nav>
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          {isAuthenticated ? (
+            <form action="/auth/sign-out" method="post">
+              <Button variant="outline" size="sm" type="submit">
+                Sign out
+              </Button>
+            </form>
+          ) : (
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/sign-in">Sign in</Link>
+            </Button>
+          )}
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );
