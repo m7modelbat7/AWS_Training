@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/learn", label: "Lessons" },
   { href: "/projects", label: "Projects" },
   { href: "/settings", label: "Settings" },
 ];
